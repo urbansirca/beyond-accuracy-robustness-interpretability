@@ -78,8 +78,8 @@ EEGNet is trained from scratch and needs no download.
 | LaBraM | `weights/pretrained/labram-base.pth` | Upstream [LaBraM repo](https://github.com/935963004/LaBraM) |
 | CBraMod | `weights/pretrained/cbramod-base.pth` | Upstream [CBraMod repo](https://github.com/wjq-learning/CBraMod)|
 | BIOT | `weights/pretrained/biot-base.ckpt` | Upstream [BIOT repo](https://github.com/ycq091044/BIOT) |
-| BrainOmni | `weights/pretrained/BrainOmni/` (directory containing `BrainOmni.pt` and `model_cfg.json`) | HuggingFace `OpenTSLab/BrainOmni` |
-| REVE | auto-downloaded from HuggingFace (`brain-bzh/reve-base` + `brain-bzh/reve-positions`) — no manual step | Loaded by [models/REVE/modules.py](models/REVE/modules.py) |
+| BrainOmni | `weights/pretrained/BrainOmni/` (directory containing `BrainOmni.pt` and `model_cfg.json`) | HuggingFace [`OpenTSLab/BrainOmni`](https://huggingface.co/OpenTSLab/BrainOmni) |
+| REVE | auto-downloaded from HuggingFace `brain-bzh/reve-base` + `brain-bzh/reve-positions`  | Loaded by [models/REVE/modules.py](models/REVE/modules.py) from the [`brain-bzh/reve`](https://huggingface.co/collections/brain-bzh/reve) collection |
 | NeuroRVQ | `weights/pretrained/neurorvq-base.pt` | HuggingFace [`ntinosbarmpas/NeuroRVQ`](https://huggingface.co/ntinosbarmpas/NeuroRVQ) |
 
 The BrainOmni checkpoint can be fetched directly:
@@ -90,9 +90,7 @@ huggingface-cli download OpenTSLab/BrainOmni --local-dir weights/pretrained/Brai
 
 For LaBraM / CBraMod / BIOT / NeuroRVQ, download the released checkpoint from the
 upstream repo linked above and rename it to match the default path in the
-table. REVE pulls its weights automatically the first time it's instantiated (cached
-under `~/.cache/huggingface/`).
-
+table. REVE pulls its weights automatically the first time it's instantiated.
 ## Environment Setup
 [![python](https://img.shields.io/badge/Python-3.11.8-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![pytorch](https://img.shields.io/badge/PyTorch-2.8-EE4C2C.svg?style=flat&logo=pytorch)](https://pytorch.org)
@@ -217,10 +215,12 @@ python -m cli.probe --config configs/probing/concat.yaml --models CBraMod
 Run attribution analyses (LRP / IxG / GradCAM / attention):
 
 ```commandline
-python -m cli.interpret lrp --models REVE --benchmarks "Physionet Eyes" --fold 0
-python -m cli.interpret ixg --augmentations pink_noise_0db --fold -1
-python -m cli.interpret gradcam --models LaBraM --target_layer 5
+python -m cli.interpret --config configs/interpret/lrp.yaml --models REVE --benchmarks "Physionet Eyes" --fold 0
+python -m cli.interpret --config configs/interpret/ixg.yaml --augmentations pink_noise_0db --fold -1
+python -m cli.interpret --config configs/interpret/gradcam.yaml --models LaBraM
+python -m cli.interpret --config configs/interpret/attention.yaml
 ```
+
 
 `--fold -1` (the default) iterates all 10 folds.
 ## Result Aggregation

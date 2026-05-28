@@ -24,35 +24,24 @@ foundation models, the robustness suite, and interpretability analyses.
 
 EEG foundation models (EEG-FMs) have been evaluated predominantly on clean, in-distribution accuracy, leaving their robustness, interpretability and representational quality largely unexamined. This study addresses these gaps by benchmarking six EEG-FMs against a baseline deep learning model across eight datasets. Beyond clean accuracy, we conduct three layers of analysis: (i) Robustness: we apply test-time perturbations including additive noise, random and region-based channel dropout and region-specific noise injection. Our analyses show that no single model dominates all failure modes. The most noise-robust model is among the most fragile under channel dropout and much of the dropout fragility disappears when channels are removed rather than zero-padded. (ii) Interpretability: we present the first application of Attention-Aware Layer-Wise Relevance Propagation (AttnLRP) to EEG-FMs and show that models broadly concentrate relevance on task-appropriate brain regions consistent with known neurophysiology. However, attribution maps remain spatially stable under perturbation while predictions degrade, suggesting that the models attend to the correct brain regions but decode corrupted content. (iii) Expressiveness: With block-wise probing we show that late blocks are repurposed during fine-tuning, while early blocks already hold task-related information. Furthermore, we demonstrate that the poor head-only performance previously attributed to low-quality pre-trained representations is largely explained by pooling and that EEG-FMs possess sufficient representational capacity when their token-level embeddings are preserved. Together, these findings provide the first systematic assessment of robustness, interpretability and expressiveness for EEG-FMs and highlight critical considerations for their development.
 
-<table>
-<tr>
-<td width="45%" valign="top">
+#
+
+<div align="center">
 
 ### Clean accuracy across all eight benchmarks
 
-<img src="figures/sec1_clean_bars_combined.png" alt="Clean balanced accuracy per (model, benchmark)" width="100%">
-
-</td>
-<td width="55%" rowspan="2" valign="middle">
-
-### Class-averaged attribution maps
-
-<img src="figures/sec3_lrp_grid_class_avg_all.png" alt="Class-averaged attribution topographies — all models × benchmarks" width="100%">
-
-</td>
-</tr>
-<tr>
-<td width="45%" valign="bottom">
+<img src="figures/sec1_clean_bars_combined.png" alt="Clean balanced accuracy per (model, benchmark)" width="700">
 
 ### Robustness summary across perturbations
 
-<img src="figures/sec2_robustness_summary_full_realdrop.png" alt="Robustness summary — full fine-tuning, real channel dropout" width="100%">
+<img src="figures/sec2_robustness_summary_full_realdrop.png" alt="Robustness summary — full fine-tuning, real channel dropout" width="700">
 
-</td>
-</tr>
-</table>
+### Class-averaged attribution maps
+
+<img src="figures/sec3_lrp_grid_class_avg_all.png" alt="Class-averaged attribution topographies — all models × benchmarks" width="700">
 
 
+</div>
 
 ## Models
 

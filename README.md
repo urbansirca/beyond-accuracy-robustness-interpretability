@@ -34,7 +34,7 @@ EEG foundation models (EEG-FMs) have been evaluated predominantly on clean, in-d
 
 ### Robustness summary across perturbations
 
-<img src="figures/sec2_robustness_summary_full_realdrop.png" alt="Robustness summary — full fine-tuning, real channel dropout" width="700">
+<img src="figures/sec2_robustness_summary_full.png" alt="Robustness summary — full fine-tuning" width="700">
 
 ### Class-averaged attribution maps
 

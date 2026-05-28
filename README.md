@@ -1,8 +1,14 @@
 # EEG Robustness and Interpretability Benchmarking
 
+[![arXiv](https://img.shields.io/badge/arXiv-2605.17562-B31B1B.svg?style=flat&logo=arxiv&logoColor=white)](https://doi.org/10.48550/arXiv.2605.17562)
+
 Code for the paper [*Beyond Accuracy: Robustness, Interpretability and
-Expressiveness of EEG Foundation Models*](https://doi.org/10.48550/arXiv.2605.17562)
-(Širca, Alimardani, Zafeiriou, Barmpas — arXiv:2605.17562, 2026).
+Expressiveness of EEG Foundation Models*](https://doi.org/10.48550/arXiv.2605.17562).
+
+Urban Širca<sup>1</sup>&nbsp;&nbsp;Maryam Alimardani<sup>1</sup>&nbsp;&nbsp;Stefanos Zafeiriou<sup>2</sup>&nbsp;&nbsp;Konstantinos Barmpas<sup>2</sup>
+
+<sup>1</sup>Vrije Universiteit Amsterdam, Netherlands
+<sup>2</sup>Imperial College London, United Kingdom
 
 This repository **extends** the [*codebase*](https://github.com/dykestra/EEG-Benchmarking) and benchmarking protocol from the
 IEEE MLSP 2025 paper [*Assessing the Capabilities of Large Brainwave Foundation

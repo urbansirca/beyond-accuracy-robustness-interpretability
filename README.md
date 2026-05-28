@@ -18,22 +18,22 @@ EEG foundation models (EEG-FMs) have been evaluated predominantly on clean, in-d
 
 ### Clean accuracy across all eight benchmarks
 
-<img src="readme-plots/sec1_clean_bars_combined.png" alt="Clean balanced accuracy per (model, benchmark)" width="700">
+<img src="figures/sec1_clean_bars_combined.png" alt="Clean balanced accuracy per (model, benchmark)" width="700">
 
 ### Robustness summary across perturbations
 
-<img src="readme-plots/sec2_robustness_summary_full_realdrop.png" alt="Robustness summary — full fine-tuning, real channel dropout" width="700">
+<img src="figures/sec2_robustness_summary_full_realdrop.png" alt="Robustness summary — full fine-tuning, real channel dropout" width="700">
 
 ### Class-averaged attribution maps
 
-<img src="readme-plots/sec3_lrp_grid_class_avg_all.png" alt="Class-averaged attribution topographies — all models × benchmarks" width="700">
+<img src="figures/sec3_lrp_grid_class_avg_all.png" alt="Class-averaged attribution topographies — all models × benchmarks" width="700">
 
 AttnLRP is used for EEGNet, LaBraM, CBraMod and REVE. NeuroRVQ and BrainOmni
 fall back to Input × Gradient (IxG).
 
 ### Block-wise mean-pooled probing (pre-trained vs fine-tuned)
 
-<img src="readme-plots/sec4_probing_grid_mean_pt_vs_ft.png" alt="Block-wise mean-pooled probing" width="700">
+<img src="figures/sec4_probing_grid_mean_pt_vs_ft.png" alt="Block-wise mean-pooled probing" width="700">
 
 ## Models
 

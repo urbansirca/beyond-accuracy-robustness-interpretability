@@ -1,45 +1,58 @@
-# EEG Robustness and Interpretability Benchmarking
 
-[![arXiv](https://img.shields.io/badge/arXiv-2605.17562-B31B1B.svg?style=flat&logo=arxiv&logoColor=white)](https://doi.org/10.48550/arXiv.2605.17562)
+<div align="center">
 
-Code for the paper [*Beyond Accuracy: Robustness, Interpretability and
-Expressiveness of EEG Foundation Models*](https://doi.org/10.48550/arXiv.2605.17562).
+# Beyond Accuracy: Robustness, Interpretability and Expressiveness of EEG Foundation Models
 
-Urban Širca<sup>1</sup>&nbsp;&nbsp;Maryam Alimardani<sup>1</sup>&nbsp;&nbsp;Stefanos Zafeiriou<sup>2</sup>&nbsp;&nbsp;Konstantinos Barmpas<sup>2</sup>
+<a href='https://doi.org/10.48550/arXiv.2605.17562'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
 
-<sup>1</sup>Vrije Universiteit Amsterdam, Netherlands
+Urban Širca<sup>1</sup> &emsp; Maryam Alimardani<sup>1</sup> &emsp; Stefanos Zafeiriou<sup>2</sup> &emsp; Konstantinos Barmpas<sup>2</sup>
+
+<sup>1</sup>Vrije Universiteit Amsterdam, Netherlands <br>
 <sup>2</sup>Imperial College London, United Kingdom
 
-This repository **extends** the [*codebase*](https://github.com/dykestra/EEG-Benchmarking) and benchmarking protocol from the
+This is the official implementation of *Beyond Accuracy: Robustness, Interpretability and Expressiveness of EEG Foundation Models*, a systematic study of robustness, interpretability and representational quality of EEG foundation models across eight benchmarks. This repository **extends** the [*codebase*](https://github.com/dykestra/EEG-Benchmarking) and benchmarking protocol from the
 IEEE MLSP 2025 paper [*Assessing the Capabilities of Large Brainwave Foundation
 Models*](https://ieeexplore.ieee.org/abstract/document/11204282) (Lee et al.), which
 introduced the subject-independent cross-validation protocol and the initial
 five-dataset suite. We add more datasets (KU MI, PhysioNet MI/ME), more
-foundation models, the robustness suite, and the interpretability analyses listed above.
+foundation models, the robustness suite, and interpretability analyses.
+
+</div>
 
 
 ## Abstract
 
 EEG foundation models (EEG-FMs) have been evaluated predominantly on clean, in-distribution accuracy, leaving their robustness, interpretability and representational quality largely unexamined. This study addresses these gaps by benchmarking six EEG-FMs against a baseline deep learning model across eight datasets. Beyond clean accuracy, we conduct three layers of analysis: (i) Robustness: we apply test-time perturbations including additive noise, random and region-based channel dropout and region-specific noise injection. Our analyses show that no single model dominates all failure modes. The most noise-robust model is among the most fragile under channel dropout and much of the dropout fragility disappears when channels are removed rather than zero-padded. (ii) Interpretability: we present the first application of Attention-Aware Layer-Wise Relevance Propagation (AttnLRP) to EEG-FMs and show that models broadly concentrate relevance on task-appropriate brain regions consistent with known neurophysiology. However, attribution maps remain spatially stable under perturbation while predictions degrade, suggesting that the models attend to the correct brain regions but decode corrupted content. (iii) Expressiveness: With block-wise probing we show that late blocks are repurposed during fine-tuning, while early blocks already hold task-related information. Furthermore, we demonstrate that the poor head-only performance previously attributed to low-quality pre-trained representations is largely explained by pooling and that EEG-FMs possess sufficient representational capacity when their token-level embeddings are preserved. Together, these findings provide the first systematic assessment of robustness, interpretability and expressiveness for EEG-FMs and highlight critical considerations for their development.
 
+<table>
+<tr>
+<td width="45%" valign="top">
+
 ### Clean accuracy across all eight benchmarks
 
-<img src="figures/sec1_clean_bars_combined.png" alt="Clean balanced accuracy per (model, benchmark)" width="700">
+<img src="figures/sec1_clean_bars_combined.png" alt="Clean balanced accuracy per (model, benchmark)" width="100%">
 
-### Robustness summary across perturbations
-
-<img src="figures/sec2_robustness_summary_full_realdrop.png" alt="Robustness summary — full fine-tuning, real channel dropout" width="700">
+</td>
+<td width="55%" rowspan="2" valign="middle">
 
 ### Class-averaged attribution maps
 
-<img src="figures/sec3_lrp_grid_class_avg_all.png" alt="Class-averaged attribution topographies — all models × benchmarks" width="700">
+<img src="figures/sec3_lrp_grid_class_avg_all.png" alt="Class-averaged attribution topographies — all models × benchmarks" width="100%">
 
-AttnLRP is used for EEGNet, LaBraM, CBraMod and REVE. NeuroRVQ and BrainOmni
-fall back to Input × Gradient (IxG).
+</td>
+</tr>
+<tr>
+<td width="45%" valign="bottom">
 
-### Block-wise mean-pooled probing (pre-trained vs fine-tuned)
+### Robustness summary across perturbations
 
-<img src="figures/sec4_probing_grid_mean_pt_vs_ft.png" alt="Block-wise mean-pooled probing" width="700">
+<img src="figures/sec2_robustness_summary_full_realdrop.png" alt="Robustness summary — full fine-tuning, real channel dropout" width="100%">
+
+</td>
+</tr>
+</table>
+
+
 
 ## Models
 
@@ -52,6 +65,23 @@ Benchmarking is currently supported for the following models:
 - [**REVE**](https://brain-bzh.github.io/reve/)
 - [**BrainOmni**](https://github.com/OpenTSLab/BrainOmni)
 - [**NeuroRVQ**](https://neurorvq.github.io)
+
+
+### Pretrained weights
+
+Each foundation-model wrapper looks for its checkpoint at a default path under
+`weights/pretrained/`. You can override per run by passing `--ckpt-path` (or
+setting `ckpt_path` in the config); when unset, the defaults below are used.
+EEGNet is trained from scratch and needs no download.
+
+| Model | Default path | Where to get the checkpoint |
+|-|-|-|
+| LaBraM | `weights/pretrained/labram-base.pth` | Upstream [LaBraM repo](https://github.com/935963004/LaBraM) |
+| CBraMod | `weights/pretrained/cbramod-base.pth` | Upstream [CBraMod repo](https://github.com/wjq-learning/CBraMod)|
+| BIOT | `weights/pretrained/biot-base.ckpt` | Upstream [BIOT repo](https://github.com/ycq091044/BIOT) |
+| BrainOmni | `weights/pretrained/BrainOmni/` (directory containing `BrainOmni.pt` and `model_cfg.json`) | HuggingFace [`OpenTSLab/BrainOmni`](https://huggingface.co/OpenTSLab/BrainOmni) |
+| REVE | auto-downloaded from HuggingFace `brain-bzh/reve-base` + `brain-bzh/reve-positions`  | Loaded by [models/REVE/modules.py](models/REVE/modules.py) from the [`brain-bzh/reve`](https://huggingface.co/collections/brain-bzh/reve) collection |
+| NeuroRVQ | `weights/pretrained/neurorvq-base.pt` | HuggingFace [`ntinosbarmpas/NeuroRVQ`](https://huggingface.co/ntinosbarmpas/NeuroRVQ) |
 
 
 ### BrainOmni setup
@@ -71,22 +101,6 @@ available:
    # configs/_base.yaml
    brainomni_repo: /path/to/BrainOmni
    ```
-
-### Pretrained weights
-
-Each foundation-model wrapper looks for its checkpoint at a default path under
-`weights/pretrained/`. You can override per run by passing `--ckpt-path` (or
-setting `ckpt_path` in the config); when unset, the defaults below are used.
-EEGNet is trained from scratch and needs no download.
-
-| Model | Default path | Where to get the checkpoint |
-|-|-|-|
-| LaBraM | `weights/pretrained/labram-base.pth` | Upstream [LaBraM repo](https://github.com/935963004/LaBraM) |
-| CBraMod | `weights/pretrained/cbramod-base.pth` | Upstream [CBraMod repo](https://github.com/wjq-learning/CBraMod)|
-| BIOT | `weights/pretrained/biot-base.ckpt` | Upstream [BIOT repo](https://github.com/ycq091044/BIOT) |
-| BrainOmni | `weights/pretrained/BrainOmni/` (directory containing `BrainOmni.pt` and `model_cfg.json`) | HuggingFace [`OpenTSLab/BrainOmni`](https://huggingface.co/OpenTSLab/BrainOmni) |
-| REVE | auto-downloaded from HuggingFace `brain-bzh/reve-base` + `brain-bzh/reve-positions`  | Loaded by [models/REVE/modules.py](models/REVE/modules.py) from the [`brain-bzh/reve`](https://huggingface.co/collections/brain-bzh/reve) collection |
-| NeuroRVQ | `weights/pretrained/neurorvq-base.pt` | HuggingFace [`ntinosbarmpas/NeuroRVQ`](https://huggingface.co/ntinosbarmpas/NeuroRVQ) |
 
 The BrainOmni checkpoint can be fetched directly:
 

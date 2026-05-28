@@ -1,0 +1,20 @@
+# Head
+
+extends: ../_base.yaml
+phase: train
+
+overwrite: false
+
+output_dir: results/head_only_train
+metrics: [accuracy, bacc]
+
+models:
+  - LaBraM
+  - NeuroRVQ
+  - REVE
+
+finetune_modes: [head_only, full]
+large_head: [true, false]   
+
+augmentations:
+  - {train: null, test: null}

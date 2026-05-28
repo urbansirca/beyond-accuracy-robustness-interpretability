@@ -1,0 +1,27 @@
+# BrainOmni ablation: skip the tokenizer's VQ codebook lookup.
+# The encoder's continuous (L2-normalized) features are fed straight to the LM
+# blocks instead of being snapped to the nearest codebook entry.
+# Only meaningful for BrainOmni — other models ignore the flag.
+
+extends: ../_base.yaml
+phase: train
+
+output_dir: results/skip_tokenizer_brainomni
+
+overwrite: false
+
+metrics: [accuracy, bacc]
+
+models: [BrainOmni]
+
+benchmarks: [KU MI, High Gamma]
+
+# Skip the RVQ discretisation inside BrainTokenizer.tokenize.
+# Read by experiments/config.py:ExperimentConfig.init and forwarded through
+# the model loader into BrainTokenizer.
+skip_brainomni_tokenizer: true
+
+finetune_modes: [full]
+
+augmentations:
+  - {train: null, test: null}

@@ -1,0 +1,14 @@
+# Robustness: drop all channels in a task-relevant region (primary motor cortex,
+# secondary motor regions, or a non-task-relevant control region).
+# Channels are zeroed at eval time; the trained checkpoint is unchanged.
+
+extends: ../_base.yaml
+phase: evaluate
+
+output_dir: results/channel_dropout_region_eval
+evaluate_on: best
+metrics: [accuracy, bacc, kappa, f1_weighted, f1_macro, roc_auc]
+
+augmentations:
+  - {train: null, test: dropout_region_primary}
+  - {train: null, test: dropout_region_control}

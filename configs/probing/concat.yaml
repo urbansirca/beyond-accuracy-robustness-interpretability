@@ -1,0 +1,6 @@
+# Concat-pool probing: flatten all block output tokens, fit a linear probe
+
+extends: _base.yaml
+
+pooling: concat
+output_csv: probing_results_concat.csv

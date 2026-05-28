@@ -1,0 +1,18 @@
+# Robustness: clean-trained checkpoints, evaluated under additive white Gaussian
+# noise at decreasing SNR. Tests sensor-noise robustness across the SNR range
+# reported in the paper.
+
+extends: ../_base.yaml
+phase: evaluate
+
+output_dir: results/white_noise_eval
+evaluate_on: best
+metrics: [accuracy, bacc, kappa, f1_weighted, f1_macro, roc_auc]
+
+augmentations:
+  - {train: null, test: white_noise_10db}
+  - {train: null, test: white_noise_5db}
+  - {train: null, test: white_noise_0db}
+  - {train: null, test: white_noise_-3db}
+  - {train: null, test: white_noise_-5db}
+  - {train: null, test: white_noise_-15db}

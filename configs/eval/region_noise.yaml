@@ -1,0 +1,16 @@
+# Robustness: localized white-noise injection — additive noise applied only to
+# channels in a specific region (primary motor / secondary motor / control).
+# Two SNRs per region: mild (5 dB) and severe (-3 dB).
+
+extends: ../_base.yaml
+phase: evaluate
+
+output_dir: results/region_noise_eval
+evaluate_on: best
+metrics: [accuracy, bacc, kappa, f1_weighted, f1_macro, roc_auc]
+
+augmentations:
+  - {train: null, test: region_noise_white_5db_primary}
+  - {train: null, test: region_noise_white_-3db_primary}
+  - {train: null, test: region_noise_white_5db_control}
+  - {train: null, test: region_noise_white_-3db_control}

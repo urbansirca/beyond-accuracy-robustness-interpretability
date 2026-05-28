@@ -1,0 +1,24 @@
+# Selvaraju et al. GradCAM (one transformer block hooked per run).
+# Supported: LaBraM, REVE, CBraMod, NeuroRVQ. EEGNet and BrainOmni have no
+# electrode-preserving intermediate layer for a per-electrode CAM.
+# GradCAM does not accept augmentations (clean data only at this orchestration
+# layer — adapt.run_gradcam never consumed an augmentation argument).
+
+extends: _base.yaml
+
+method: gradcam
+
+models:
+  - LaBraM
+  - REVE
+  - CBraMod
+  - NeuroRVQ
+
+# Seed class for the backward pass: 'gt' (ground truth) or 'predicted'.
+target: gt
+
+# Transformer block to hook. -1 = last block.
+target_layer: -1
+
+# Filter to top-(1 - q) most confident *correct* predictions before averaging.
+confidence_quantile: 0.75

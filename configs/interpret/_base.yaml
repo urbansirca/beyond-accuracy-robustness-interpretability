@@ -1,0 +1,33 @@
+# Shared defaults inherited by every interpret config via `extends: _base.yaml`.
+# Anything set here can be overridden in the child config or on the CLI.
+# Used by `python -m cli.interpret <method> --config configs/interpret/<method>.yaml`.
+
+data_root: /projects/prjs1721/benchmarks
+
+# -1 = sweep all 10 folds; otherwise a single fold index.
+fold: -1
+
+# null  → REVE uses large_head, everything else uses the small head (matches the
+#         hard-coded defaults in cli/interpret.py).
+# true  → force the flatten/concat large-head variant (LaBraM/NeuroRVQ/REVE only).
+# false → force the small head everywhere.
+large_head: null
+
+# Recompute CSVs even if they already exist on disk.
+overwrite: false
+
+# Cross-product axes. Child configs typically narrow `models` to the set the
+# method supports — see each method file for the supported subset.
+models:
+  - LaBraM
+  - REVE
+  - NeuroRVQ
+  - CBraMod
+  - BrainOmni
+  - EEGNet
+
+benchmarks:
+  - Physionet Eyes
+  - KU MI
+  - High Gamma
+  - KU ERP

@@ -1,0 +1,22 @@
+# Baseline evaluation: clean test on checkpoints from configs/train/baseline.yaml.
+# Use this to (re)compute the full metric suite on already-trained models.
+# For robustness sweeps, copy this file and extend `augmentations`
+# (e.g. configs/eval/pink_noise.yaml, configs/eval/channel_dropout.yaml).
+
+extends: ../_base.yaml
+phase: evaluate
+
+output_dir: results/baseline_eval
+evaluate_on: best                  # "best" or "last" — which fold checkpoint to load
+
+# Full metric suite, computed from the eval set in one pass per fold.
+metrics: [accuracy, bacc, kappa, f1_weighted, f1_macro, roc_auc]
+
+# Clean-on-clean by default. To run a robustness sweep, list (train, test)
+# augmentation pairs here. `train: null` keeps the clean checkpoint and only
+# perturbs at eval time. Augmentation names must match those known to
+# data/perturbations/* (see corrupt_datasets.py for the catalog).
+augmentations:
+  - {train: null, test: null}
+  # - {train: null, test: pink_noise_0db}
+  # - {train: null, test: dropout_region_primary}

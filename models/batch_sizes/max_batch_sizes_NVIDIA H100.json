@@ -1,0 +1,57 @@
+{
+  "BIOT": {
+    "High Gamma": 8192,
+    "KU MI": 8192,
+    "Physionet Eyes": 8192
+  },
+  "NeuroRVQ": {
+    "Sleep EDF": 2048,
+    "Pavlov memory": 256,
+    "KU MI": 256,
+    "Physionet ME": 256,
+    "High Gamma": 256,
+    "KU ERP": 2048,
+    "Physionet MI": 256,
+    "Physionet Eyes": 256
+  },
+  "CBraMod": {
+    "High Gamma": 1024,
+    "KU MI": 1024,
+    "Physionet Eyes": 1024,
+    "KU ERP": 4096,
+    "Physionet MI": 1024,
+    "Physionet ME": 1024,
+    "Pavlov memory": 1024,
+    "Sleep EDF": 4096
+  },
+  "LaBraM": {
+    "KU MI": 1024,
+    "KU ERP": 8192,
+    "Physionet MI": 1024,
+    "Physionet Eyes": 1024,
+    "Physionet ME": 1024,
+    "High Gamma": 512,
+    "Pavlov memory": 1024,
+    "Sleep EDF": 8192
+  },
+  "BrainOmni": {
+    "KU ERP": 1024,
+    "KU MI": 64,
+    "Physionet ME": 64,
+    "High Gamma": 64,
+    "Physionet MI": 64,
+    "Physionet Eyes": 64,
+    "Pavlov memory": 64,
+    "Sleep EDF": 64
+  },
+  "REVE": {
+    "KU MI": 256,
+    "Sleep EDF": 1024,
+    "Pavlov memory": 256,
+    "KU ERP": 1024,
+    "Physionet ME": 256,
+    "High Gamma": 256,
+    "Physionet MI": 256,
+    "Physionet Eyes": 256
+  }
+}

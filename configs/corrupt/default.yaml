@@ -1,0 +1,47 @@
+data_root: /projects/prjs1721/benchmarks
+seed: 0
+apply_car: true
+
+# Chunk size for the noise generator
+batch_size: 10000
+filter_noise: true
+save: true
+visualise: false       # plt.show() after each augmentation
+
+benchmarks:
+  - KU ERP
+  - Pavlov memory
+  - Sleep EDF
+  - Physionet MI
+  - Physionet ME
+  - Physionet Eyes
+  - High Gamma
+  - KU MI
+
+# null = the base/clean subdir; "brainomni" = the BrainOmni-resampled (256 Hz) variant.
+subdirs:
+  - brainomni # sampled at 256Hz
+  - null # 200Hz for other models
+
+sensor_noise:
+  noise_types: [white, pink]            # any subset of {white, pink}
+  snr_db: [10,5,0,-3,-5, 15]                   # e.g. [10, 5, 0, -3, -5, -15]
+  overwrite: false
+
+random_dropout:
+  drop_rates: [0.1, 0.3, 0.5]
+  overwrite: false
+
+region_dropout:                  # primary / secondary / control regions (swept internally)
+  overwrite: false
+  regions:
+    - primary
+    - control
+
+region_noise:
+  noise_type: white
+  regions:
+    - primary
+    - control
+  snr_db: [5, -3]
+  overwrite: false

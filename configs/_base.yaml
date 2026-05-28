@@ -1,0 +1,63 @@
+# Shared defaults inherited by every train/eval config via `extends: _base.yaml`.
+# Anything set here can be overridden in the child config.
+
+data_root: /projects/prjs1721/benchmarks
+
+# Cross-validation
+n_folds: 10
+n_epochs: 20
+early_stopping_patience: 5
+apply_car: true
+
+# Checkpointing — only honored when phase=train. Eval reads existing checkpoints
+# selected by `evaluate_on` (set in the eval config).
+ckpt_root: weights/finetuned   # save ckpts under {ckpt_root}/{model}/{benchmark}/
+save_best_checkpoint: true
+save_last_checkpoint: true
+
+# Set true to retrain (train phase) or recompute existing fold results (eval phase).
+overwrite: false
+
+# Batch size finder: probes max BS per (model, benchmark, GPU) when results
+# are missing from models/batch_sizes/max_batch_sizes_<gpu>.json.
+run_batch_size_finder: true
+
+# Dataset-specific
+remove_first_quarter: false  # drop pre-movement 1s of Physionet MI/ME (matches ExperimentConfig field name)
+
+# Logging
+use_clearml: false
+add_unique_id: false  # append timestamp to task names
+
+# Cross-product axes. Child configs can narrow this down
+models:
+  - LaBraM
+  - NeuroRVQ
+  - BrainOmni
+  - REVE
+  - CBraMod
+  - BIOT
+  - EEGNet
+
+benchmarks:
+  - Physionet Eyes
+  - Physionet MI
+  - Physionet ME
+  - KU MI
+  - High Gamma
+  - Pavlov memory
+  - Sleep EDF
+  - KU ERP
+
+finetune_modes: [full, head_only]   # any subset of {head_only, full}
+large_head: [null]            # null = each model's primary head (REVE→true, LaBraM/NeuroRVQ→false).
+                              # Use [true, false] to explicitly sweep both heads (valid for LaBraM/NeuroRVQ/REVE only).
+exit_block: [null]            # early-exit transformer block (1-based); null = use all blocks
+
+
+skip_brainomni_tokenizer: false # whether to skip the brainomni tokenizer
+
+# Path to an upstream BrainOmni clone (https://github.com/OpenTSLab/BrainOmni).
+# null → use the bundled clone at models/BrainOmni/BrainOmni_repo/.
+brainomni_repo: null
+

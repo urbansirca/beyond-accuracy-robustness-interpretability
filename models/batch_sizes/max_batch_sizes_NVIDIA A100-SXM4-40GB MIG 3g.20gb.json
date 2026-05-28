@@ -1,0 +1,48 @@
+{
+  "NeuroRVQ": {
+    "KU ERP": 256,
+    "Sleep EDF": 256,
+    "High Gamma": 32,
+    "Pavlov memory": 32
+  },
+  "LaBraM": {
+    "KU ERP": 1024,
+    "Sleep EDF": 2048,
+    "Physionet MI": 128,
+    "High Gamma": 128,
+    "Pavlov memory": 128,
+    "Physionet Eyes": 128,
+    "Physionet ME": 128,
+    "KU MI": 256
+  },
+  "CBraMod": {
+    "High Gamma": 256,
+    "KU ERP": 1024,
+    "Pavlov memory": 256,
+    "Sleep EDF": 1024
+  },
+  "BIOT": {
+    "High Gamma": 1024,
+    "KU ERP": 1024,
+    "Pavlov memory": 1024,
+    "Sleep EDF": 128,
+    "Physionet MI": 1028,
+    "Physionet ME": 1028
+  },
+  "EEGNet": {
+    "High Gamma": 128,
+    "KU ERP": 128,
+    "Pavlov memory": 128,
+    "Sleep EDF": 128,
+    "Physionet MI": 8192,
+    "Physionet Eyes": 8192,
+    "Physionet ME": 8192,
+    "KU MI": 8192
+  },
+  "EEGInception": {
+    "High Gamma": 512,
+    "KU ERP": 4096,
+    "Pavlov memory": 1024,
+    "Sleep EDF": 2048
+  }
+}

@@ -1,0 +1,57 @@
+# BrainOmni ablation eval: full metric suite on checkpoints trained with the
+# VQ codebook lookup skipped. Mirrors configs/train/skip_tokenizer.yaml so the
+# same fold checkpoints under weights/finetuned/BrainOmni/<dataset>/ are loaded
+# and re-evaluated with skip_brainomni_tokenizer flipped on.
+
+extends: ../_base.yaml
+phase: evaluate
+
+output_dir: results/skip_tokenizer_brainomni
+evaluate_on: best
+
+metrics: [accuracy, bacc, kappa, f1_weighted, f1_macro, roc_auc]
+
+models: [BrainOmni]
+
+benchmarks: [KU MI, High Gamma]
+
+# Must match the training run — eval loads the checkpoint as-is and re-runs
+# the forward pass, so the tokenizer needs to be bypassed here too.
+skip_brainomni_tokenizer: true
+
+finetune_modes: [full]
+
+augmentations:
+  # Clean baseline
+  # - {train: null, test: null}
+
+  # White noise sweep
+  # - {train: null, test: white_noise_10db}
+  # - {train: null, test: white_noise_5db}
+  # - {train: null, test: white_noise_0db}
+  # - {train: null, test: white_noise_-3db}
+  # - {train: null, test: white_noise_-5db}
+  # - {train: null, test: white_noise_-15db}
+
+  # # Pink (1/f) noise sweep
+  # # - {train: null, test: pink_noise_10db}
+  # # - {train: null, test: pink_noise_5db}
+  # # - {train: null, test: pink_noise_0db}
+  # # - {train: null, test: pink_noise_-3db}
+  # # - {train: null, test: pink_noise_-5db}
+
+  # # Region-localized white noise
+  # - {train: null, test: region_noise_white_5db_primary}
+  # - {train: null, test: region_noise_white_-3db_primary}
+  - {train: null, test: region_noise_white_5db_control}
+  - {train: null, test: region_noise_white_-3db_control}
+
+  # # Random channel dropout
+  # - {train: null, test: dropout_random_p10}
+  # - {train: null, test: dropout_random_p30}
+  # - {train: null, test: dropout_random_p50}
+
+  # # Region-localized channel dropout
+  # - {train: null, test: dropout_region_primary}
+  # - {train: null, test: dropout_region_control}
+

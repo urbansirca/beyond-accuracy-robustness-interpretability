@@ -1,0 +1,31 @@
+# Layer-wise Relevance Propagation (AttnLRP).
+# Supported: EEGNet, CBraMod, REVE, LaBraM. BrainOmni has no canonical ε-rule
+# for its tokenizer; NeuroRVQ's LRP is unstable — use ixg.yaml for those two.
+
+extends: _base.yaml
+
+method: lrp
+
+models:
+  - EEGNet
+  - CBraMod
+  - REVE
+  - LaBraM
+
+# Seed class for the backward pass: 'gt' (ground truth) or 'predicted'.
+target: gt
+
+# CP-LRP: detach Q,K so only V receives attribution through attention. Produces
+# sharper maps but breaks strict conservation. Off by default.
+conservative: false
+
+# Filter to top-(1 - q) most confident *correct* predictions before averaging.
+confidence_quantile: 0.75
+
+# Per-eval augmentation tags (see data/perturbations/* for the catalog).
+# `null` = clean data. Add more entries to sweep robustness conditions.
+augmentations:
+  - null
+  # - pink_noise_0db
+  # - white_noise_0db
+  # - dropout_region_primary

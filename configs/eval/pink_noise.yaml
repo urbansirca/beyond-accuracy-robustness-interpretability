@@ -1,0 +1,16 @@
+# Robustness: 1/f (pink) noise sweep. More physiologically plausible than
+# white noise and produces the task-dependent collapse documented in the paper.
+
+extends: ../_base.yaml
+phase: evaluate
+
+output_dir: results/pink_noise_eval
+evaluate_on: best
+metrics: [accuracy, bacc, kappa, f1_weighted, f1_macro, roc_auc]
+
+augmentations:
+  - {train: null, test: pink_noise_10db}
+  - {train: null, test: pink_noise_5db}
+  - {train: null, test: pink_noise_0db}
+  - {train: null, test: pink_noise_-3db}
+  - {train: null, test: pink_noise_-5db}

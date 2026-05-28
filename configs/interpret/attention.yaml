@@ -1,0 +1,24 @@
+# Raw attention-map extraction (per-block, per-head, per-branch).
+# Supported: LaBraM, REVE, NeuroRVQ, CBraMod, BrainOmni. EEGNet has no
+# attention.
+
+extends: _base.yaml
+
+method: attention
+
+models:
+  - LaBraM
+  - REVE
+  - NeuroRVQ
+  - CBraMod
+  - BrainOmni
+
+# Load checkpoints trained with head-only fine-tuning instead of full FT.
+train_head_only: false
+
+# Per-eval augmentation tags (see data/perturbations/* for the catalog).
+augmentations:
+  - null
+  # - pink_noise_0db
+  # - white_noise_0db
+  # - dropout_region_primary

@@ -1,0 +1,6 @@
+# Mean-pool probing: average all transformer block output tokens, fit a linear probe per block. 
+
+extends: _base.yaml
+
+pooling: mean
+output_csv: probing_results_mean.csv

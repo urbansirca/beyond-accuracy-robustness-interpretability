@@ -1,0 +1,34 @@
+# Shared defaults for linear probing of EEG-FM transformer blocks.
+# Child configs (mean.yaml, concat.yaml) set `pooling` and `output_csv`.
+
+data_root: /projects/prjs1721/benchmarks
+ckpt_dir:  weights/finetuned
+output_dir: results/probing-new/
+
+models:
+  - NeuroRVQ
+  - REVE
+
+benchmarks:
+  - Physionet Eyes
+  - KU MI
+  - High Gamma
+  - KU ERP
+
+ckpt_types: [pretrained, finetuned]
+
+# Use large_head variant (only valid for LaBraM, NeuroRVQ, REVE — others auto-skip).
+large_head: false
+
+# Probe training
+batch_size: 1000
+n_epochs: 20
+patience: 5
+
+# Cross-validation
+n_folds: 10
+cv_seed: 99
+
+# Skip (model, benchmark, ckpt_type, pooling, large_head, fold) tuples already
+# present in any CSV under `output_dir`. Set true to re-run.
+overwrite: false

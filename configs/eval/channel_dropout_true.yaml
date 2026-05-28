@@ -1,0 +1,29 @@
+# "True" channel dropout: dropped channels are removed from the input rather than
+# zero-padded back to the full montage. This only makes sense for variable-channel
+# models (LaBraM, NeuroRVQ, REVE, BrainOmni) — fixed-channel models are skipped 
+# Reuses the same dropped datasets as channel_dropout_{random,region}
+
+extends: ../_base.yaml
+phase: evaluate
+
+output_dir: results/dropped-channels-eval
+evaluate_on: best
+metrics: [accuracy, bacc, kappa, f1_weighted, f1_macro, roc_auc]
+
+true_channel_dropout: true   # disable zero-padding -> model sees fewer channels
+
+# Variable-channel models only (others are skipped by the runner under true dropout).
+models:
+  - LaBraM
+  - NeuroRVQ
+  - REVE
+  - BrainOmni
+
+# Region + random dropout, both swept here. Conditions match the augmented datasets
+# produced by configs/corrupt/default.yaml (cli.corrupt_datasets).
+augmentations:
+  - {train: null, test: dropout_region_primary}
+  - {train: null, test: dropout_region_control}
+  - {train: null, test: dropout_random_p10}
+  - {train: null, test: dropout_random_p30}
+  - {train: null, test: dropout_random_p50}

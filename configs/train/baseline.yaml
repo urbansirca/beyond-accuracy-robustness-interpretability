@@ -1,0 +1,21 @@
+# Baseline training: clean train, clean test, both finetune modes.
+# Produces the checkpoints that every eval config consumes.
+# For lighter runs (head-only only), use head_only.yaml instead.
+
+extends: ../_base.yaml
+phase: train
+
+output_dir: results/results_train
+
+overwrite: false
+
+# Only acc/bacc available during training (per-epoch).
+# Full metric suite is computed during eval from the saved checkpoints.
+metrics: [accuracy, bacc]
+
+# Sweep both finetune modes for the baseline ablation.
+finetune_modes: [head_only, full]
+
+# Single (clean, clean) pass — no augmentation.
+augmentations:
+  - {train: null, test: null}

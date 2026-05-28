@@ -1,0 +1,14 @@
+# Robustness: drop a random fraction p of channels per trial.
+# Sweep covers light (10%) through severe (90%) dropout.
+
+extends: ../_base.yaml
+phase: evaluate
+
+output_dir: results/channel_dropout_random_eval
+evaluate_on: best
+metrics: [accuracy, bacc, kappa, f1_weighted, f1_macro, roc_auc]
+
+augmentations:
+  - {train: null, test: dropout_random_p10}
+  - {train: null, test: dropout_random_p30}
+  - {train: null, test: dropout_random_p50}

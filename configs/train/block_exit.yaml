@@ -1,0 +1,21 @@
+# Early-exit training: head-only training with a classification head attached
+# after the k-th transformer block instead of the final layer. Used to study
+# what depth the foundation model needs for downstream tasks.
+
+# Only supported by NeuroRVQ and REVE
+
+extends: ../_base.yaml
+phase: train
+
+output_dir: results/results_block_exit
+metrics: [accuracy, bacc]
+
+# Restrict to models that support early exit.
+models: [NeuroRVQ, REVE]
+
+finetune_modes: [full]
+exit_block: [1, 4, 6]      # 1-based block index; sweeps all three
+large_head: [true]         # concatenation-based head
+
+augmentations:
+  - {train: null, test: null}
